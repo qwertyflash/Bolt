@@ -25,6 +25,7 @@ public class Ball {
         bounds = new Rectangle(x,y,ball.getWidth(),ball.getHeight());
 
 
+
     }
     public void update(float dt){
         if (position.y > 0)
