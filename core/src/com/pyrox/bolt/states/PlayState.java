@@ -3,7 +3,6 @@ package com.pyrox.bolt.states;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.pyrox.bolt.bolt;
 import com.pyrox.bolt.sprites.Ball;
@@ -27,7 +26,6 @@ public class PlayState extends State {
         ball = new Ball(50,100);
         background = new Texture("background.png");
         ground = new Texture("ground.png");
-
         tubes = new Array<Tube>();
         groundPos1 = new Vector2(cam.position.x - cam.viewportWidth / 2,GROUND_Y_OFFSET);
         groundPos2 = new Vector2(cam.position.x - cam.viewportWidth / 2 + ground.getWidth(),GROUND_Y_OFFSET);
