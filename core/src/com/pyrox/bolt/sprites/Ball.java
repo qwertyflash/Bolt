@@ -16,14 +16,14 @@ public class Ball {
     private Vector3 velocity;
     private static final int MOVEMENT = 100;
     private Texture ball;
-
+    private Sound bounce;
 
     public Ball(int x, int y){
         position = new Vector3(x,y,0);
         velocity = new Vector3(0,0,0);
         ball = new Texture("ball.png");
         bounds = new Rectangle(x,y,ball.getWidth(),ball.getHeight());
-
+        bounce = Gdx.audio.newSound(Gdx.files.internal("sfx_wing.ogg"));
 
 
     }
@@ -47,6 +47,7 @@ public class Ball {
     }
     public void jump(){
         velocity.y = 250;
+        bounce.play(0.5f);
 
     }
 
