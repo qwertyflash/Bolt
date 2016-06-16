@@ -30,6 +30,7 @@ public class Ball {
     public void update(float dt){
         if (position.y > 0)
             velocity.add(0, GRAVITY ,0);
+
         velocity.scl(dt);
         position.add(MOVEMENT * dt, velocity.y , 0);
         if (position.y < 0)
