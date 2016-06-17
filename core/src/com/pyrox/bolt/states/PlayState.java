@@ -23,6 +23,7 @@ public class PlayState extends State {
     private Texture background;
     private Texture ground;
     private Vector2 groundPos1,groundPos2;
+    private BitmapFont font;
     private Tube tube;
     public int points;
     public boolean gameover;
@@ -33,24 +34,21 @@ public class PlayState extends State {
         background = new Texture("background.png");
         ground = new Texture("ground.png");
         tubes = new Array<Tube>();
+        font = new BitmapFont(Gdx.files.internal("myfont.fnt"),Gdx.files.internal("myfont.png"),false);
         groundPos1 = new Vector2(cam.position.x - cam.viewportWidth / 2,GROUND_Y_OFFSET);
         groundPos2 = new Vector2(cam.position.x - cam.viewportWidth / 2 + ground.getWidth(),GROUND_Y_OFFSET);
         cam.setToOrtho(false, bolt.WIDTH /2,bolt.HEIGHT /2);
         gameover = new Boolean(false);
-        points = 0;
-
         for (int i = 1;i < TUBE_COUNT; i++ ){
             tubes.add(new Tube(i * (TUBE_SPACING)));
         }
     }
-
     @Override
     protected void handleInput() {
         if (Gdx.input.justTouched()){
             ball.jump();
         }
     }
-
     @Override
     public void update(float dt) {
         handleInput();
@@ -63,7 +61,7 @@ public class PlayState extends State {
                 tube.reposition(tube.getPosTopTube().x);
                 tube.reposition(tube.getPosBotTube().x + 150);
                 tube.reposition(tube.getPosHosTube().x + 300);
-                points = points + 1;
+                points = points + 3;
 
             }
             if(tube.collides(ball.getBounds())) {
@@ -76,12 +74,7 @@ public class PlayState extends State {
             newgame();
         }
         cam.update();
-        points++;
-
-
-
     }
-
     @Override
     public void render(SpriteBatch sb) {
         sb.setProjectionMatrix(cam.combined);
@@ -93,41 +86,28 @@ public class PlayState extends State {
             sb.draw(tube.getBottomTube(), tube.getPosBotTube().x, tube.getPosBotTube().y);
             sb.draw(tube.getHosTube(), tube.getPosHosTube().x, tube.getPosHosTube().y);
         }
-
+        font.draw(sb,Long.toString(getPoints()),cam.position.x,cam.position.y);
         sb.draw(ground,groundPos1.x,groundPos1.y);
         sb.draw(ground,groundPos2.x,groundPos2.y);
-
-
         sb.end();
-
     }
-
-
     public void updateGround(){
         if(cam.position.x - (cam.viewportWidth / 2) > groundPos1.x + ground.getWidth())
             groundPos1.add(ground.getWidth() * 2, 0);
         if(cam.position.x - (cam.viewportWidth / 2) > groundPos2.x + ground.getWidth())
             groundPos2.add(ground.getWidth() * 2, 0);
-
     }
-
     public  void newgame(){
         if (Gdx.input.justTouched()){
             gsm.set(new EndState(gsm));
         }
-
-
     }
     @Override
     public void dispose() {
         ground.dispose();
         background.dispose();
         ball.dispose();
-
-
     }
-
-
     public int getPoints() {
         return points;
     }
