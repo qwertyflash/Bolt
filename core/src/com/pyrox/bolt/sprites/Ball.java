@@ -17,6 +17,7 @@ public class Ball {
     private static final int MOVEMENT = 100;
     private Texture ball;
     private Sound bounce;
+    private long score;
 
     public Ball(int x, int y){
         position = new Vector3(x,y,0);
@@ -24,7 +25,7 @@ public class Ball {
         ball = new Texture("ball.png");
         bounds = new Rectangle(x,y,ball.getWidth(),ball.getHeight());
         bounce = Gdx.audio.newSound(Gdx.files.internal("sfx_wing.ogg"));
-
+        score = 0;
 
     }
     public void update(float dt){
@@ -53,6 +54,10 @@ public class Ball {
 
     public Rectangle getBounds(){
         return bounds;
+    }
+
+    public long getScore() {
+        return score;
     }
 
     public void dispose(){

@@ -19,13 +19,14 @@ public class Tube {
     private Vector2 posTopTube,posBotTube,posHosTube;
     private Rectangle boundsTop,boundsBot,boundsHos;
     private Random rand;
+    private long score;
 
     public Tube(float x) {
         topTube = new Texture ("vertical.png");
         bottomTube = new Texture("vertical2.png");
         hosTube = new Texture("horizontal.png");
         rand = new Random();
-
+        score = 0;
         posTopTube = new Vector2(x + 100, rand.nextInt(FLUCTUATION)  + LOWEST_OPENING);
         posBotTube = new Vector2(x + 300 , rand.nextInt(MAX));
         posHosTube = new Vector2(x + 500, rand.nextInt(ALL));
@@ -55,6 +56,7 @@ public class Tube {
         posTopTube.set(x , rand.nextInt(FLUCTUATION)  + LOWEST_OPENING);
         posBotTube.set(x + 200 ,rand.nextInt(MAX));
         posHosTube.set(x + 400,rand.nextInt(ALL));
+
         boundsTop.setPosition(posTopTube.x,posTopTube.y);
         boundsBot.setPosition(posBotTube.x,posBotTube.y);
         boundsHos.setPosition(posHosTube.x,posHosTube.y);
@@ -74,9 +76,14 @@ public class Tube {
 
     }
 
+
     public void dispose(){
         topTube.dispose();
         bottomTube.dispose();
         hosTube.dispose();
+    }
+
+    public long getScore() {
+        return score;
     }
 }
