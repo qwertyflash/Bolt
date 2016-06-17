@@ -34,7 +34,7 @@ public class PlayState extends State {
 
     public PlayState(GameStateManager gsm) {
         super(gsm);
-        ball = new Ball(50,100);
+        ball = new Ball(50,120);
         background = new Texture("background.png");
         ground = new Texture("ground.png");
         tubes = new Array<Tube>();
@@ -131,7 +131,7 @@ public class PlayState extends State {
         ball.dispose();
         font_gameover.dispose();
         font.dispose();
-        sb.dispose();
+
 
     }
     public int getPoints() {
