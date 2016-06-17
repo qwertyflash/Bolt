@@ -33,8 +33,8 @@ public class Ball {
             velocity.add(0, GRAVITY ,0);
         velocity.scl(dt);
         position.add(MOVEMENT * dt, velocity.y , 0);
-        if (position.y < 0)
-            position.y = 0;
+        if (position.y <= 36)
+            position.y = 36;
         velocity.scl(1/dt);
         bounds.setPosition(position.x,position.y);
     }

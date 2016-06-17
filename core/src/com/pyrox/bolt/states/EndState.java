@@ -56,7 +56,7 @@ public class EndState extends State {
         sb.begin();
         sb.draw(background,0,0);
         font_gameover.draw(sb,gameover,cam.position.x - gwidth / 2,(cam.position.y * 3 ) / 2);
-        font.draw(sb,score,cam.position.x - swidth / 2, (cam.position.y * 3) / 4);
+        font.draw(sb,score,cam.position.x - swidth / 2, cam.position.y );
         sb.end();
     }
 

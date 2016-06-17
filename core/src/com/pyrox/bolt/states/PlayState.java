@@ -57,26 +57,23 @@ public class PlayState extends State {
         updateGround();
         cam.position.x = ball.getPosition().x + 80;
 
-        for (Tube tube : tubes){
-            if (cam.position.x - cam.viewportWidth / 2 > tube.getPosHosTube().x + tube.getHosTube().getWidth()){
-                tube.reposition(tube.getPosTopTube().x );
-                tube.reposition(tube.getPosBotTube().x + 150 );
-                tube.reposition(tube.getPosHosTube().x + 300 );
-
+        for (Tube tube : tubes) {
+            if (cam.position.x - cam.viewportWidth / 2 > tube.getPosHosTube().x + tube.getHosTube().getWidth()) {
+                tube.reposition(tube.getPosTopTube().x);
+                tube.reposition(tube.getPosBotTube().x + 150);
+                tube.reposition(tube.getPosHosTube().x + 300);
             }
-            if(tube.collides(ball.getBounds())){
+            if(tube.collides(ball.getBounds())) {
                 gameover = true;
                 newgame();
-
             }
-
         }
         if(ball.getPosition().y <= ground.getHeight() + GROUND_Y_OFFSET){
             gameover = true;
             newgame();
-
         }
         cam.update();
+
 
 
 
