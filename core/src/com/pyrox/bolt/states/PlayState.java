@@ -56,6 +56,7 @@ public class PlayState extends State {
         for (int i = 1;i < TUBE_COUNT; i++ ){
             tubes.add(new Tube(i * (TUBE_SPACING)));
         }
+        Gdx.graphics.requestRendering();
     }
     @Override
     protected void handleInput() {
@@ -76,11 +77,9 @@ public class PlayState extends State {
                 tube.reposition(tube.getPosBotTube().x + 150);
                 tube.reposition(tube.getPosHosTube().x + 300);
                 points = points + 3;
-
             }
             if(tube.collides(ball.getBounds())) {
                 gameover = true;
-
             }
         }
         if(ball.getPosition().y <= ground.getHeight() + GROUND_Y_OFFSET){
@@ -100,7 +99,7 @@ public class PlayState extends State {
             sb.draw(tube.getBottomTube(), tube.getPosBotTube().x, tube.getPosBotTube().y);
             sb.draw(tube.getHosTube(), tube.getPosHosTube().x, tube.getPosHosTube().y);
         }
-        font.draw(sb,Long.toString(getPoints()),cam.position.x,cam.position.y);
+        font.draw(sb,Long.toString(getPoints()),cam.position.x ,cam.position.y * 2 );
         sb.draw(ground,groundPos1.x,groundPos1.y);
         sb.draw(ground,groundPos2.x,groundPos2.y);
         if (gameover){
@@ -108,9 +107,10 @@ public class PlayState extends State {
             font_gameover.draw(sb,gtag,cam.position.x - gwidth / 2,(cam.position.y * 3 ) / 2);
             font.draw(sb,score,cam.position.x - swidth / 2, cam.position.y );
             font.draw(sb,Integer.toString(getPoints()),cam.position.x,(cam.position.y * 3) / 4);
+            Gdx.graphics.setContinuousRendering(false);
             newgame();
-
         }
+
         sb.end();
     }
     public void updateGround(){
@@ -121,7 +121,9 @@ public class PlayState extends State {
     }
     public  void newgame(){
         if (Gdx.input.justTouched()){
-            gsm.set(new MenuState(gsm));
+            gsm.set(new PlayState(gsm));
+            Gdx.graphics.setContinuousRendering(true);
+
         }
     }
     @Override
