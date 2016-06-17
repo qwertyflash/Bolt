@@ -63,6 +63,8 @@ public class MenuState extends State {
         background.dispose();
         font_tag.dispose();
         font_title.dispose();
+        sb.dispose();
+
 
     }
 }

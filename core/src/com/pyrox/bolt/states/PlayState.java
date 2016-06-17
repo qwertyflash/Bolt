@@ -129,6 +129,9 @@ public class PlayState extends State {
         ground.dispose();
         background.dispose();
         ball.dispose();
+        font_gameover.dispose();
+        font.dispose();
+        sb.dispose();
 
     }
     public int getPoints() {
