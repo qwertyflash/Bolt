@@ -3,6 +3,7 @@ package com.pyrox.bolt.states;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
@@ -23,10 +24,13 @@ public class PlayState extends State {
     private Texture background;
     private Texture ground;
     private Vector2 groundPos1,groundPos2;
-    private BitmapFont font;
+    private BitmapFont font,font_gameover;
     private Tube tube;
-    public int points;
+    private int points;
+    private String score,gtag;
+    private GlyphLayout glyph_gameover,glyph_score;
     public boolean gameover;
+    private float gwidth,swidth;
 
     public PlayState(GameStateManager gsm) {
         super(gsm);
@@ -35,6 +39,16 @@ public class PlayState extends State {
         ground = new Texture("ground.png");
         tubes = new Array<Tube>();
         font = new BitmapFont(Gdx.files.internal("myfont.fnt"),Gdx.files.internal("myfont.png"),false);
+        font_gameover = new BitmapFont(Gdx.files.internal("myfont.fnt"),Gdx.files.internal("myfont.png"),false);
+        font_gameover.getData().setScale(2f,2f);
+        gtag = new String("GAME OVER");
+        score = new String("Your Score Is");
+        glyph_gameover = new GlyphLayout();
+        glyph_score = new GlyphLayout();
+        glyph_gameover.setText(font_gameover,gtag);
+        glyph_score.setText(font,score);
+        gwidth = glyph_gameover.width;
+        swidth = glyph_score.width;
         groundPos1 = new Vector2(cam.position.x - cam.viewportWidth / 2,GROUND_Y_OFFSET);
         groundPos2 = new Vector2(cam.position.x - cam.viewportWidth / 2 + ground.getWidth(),GROUND_Y_OFFSET);
         cam.setToOrtho(false, bolt.WIDTH /2,bolt.HEIGHT /2);
@@ -66,12 +80,12 @@ public class PlayState extends State {
             }
             if(tube.collides(ball.getBounds())) {
                 gameover = true;
-                newgame();
+
             }
         }
         if(ball.getPosition().y <= ground.getHeight() + GROUND_Y_OFFSET){
             gameover = true;
-            newgame();
+
         }
         cam.update();
     }
@@ -89,6 +103,14 @@ public class PlayState extends State {
         font.draw(sb,Long.toString(getPoints()),cam.position.x,cam.position.y);
         sb.draw(ground,groundPos1.x,groundPos1.y);
         sb.draw(ground,groundPos2.x,groundPos2.y);
+        if (gameover){
+            sb.draw(background,cam.position.x - cam.viewportWidth / 2,0);
+            font_gameover.draw(sb,gtag,cam.position.x - gwidth / 2,(cam.position.y * 3 ) / 2);
+            font.draw(sb,score,cam.position.x - swidth / 2, cam.position.y );
+            font.draw(sb,Integer.toString(getPoints()),cam.position.x,(cam.position.y * 3) / 4);
+            newgame();
+
+        }
         sb.end();
     }
     public void updateGround(){
@@ -99,7 +121,7 @@ public class PlayState extends State {
     }
     public  void newgame(){
         if (Gdx.input.justTouched()){
-            gsm.set(new EndState(gsm));
+            gsm.set(new MenuState(gsm));
         }
     }
     @Override
@@ -107,6 +129,7 @@ public class PlayState extends State {
         ground.dispose();
         background.dispose();
         ball.dispose();
+
     }
     public int getPoints() {
         return points;
