@@ -63,7 +63,8 @@ public class PlayState extends State {
                 tube.reposition(tube.getPosTopTube().x);
                 tube.reposition(tube.getPosBotTube().x + 150);
                 tube.reposition(tube.getPosHosTube().x + 300);
-                points++;
+                points = points + 1;
+
             }
             if(tube.collides(ball.getBounds())) {
                 gameover = true;
@@ -75,7 +76,7 @@ public class PlayState extends State {
             newgame();
         }
         cam.update();
-
+        points++;
 
 
 
@@ -92,6 +93,7 @@ public class PlayState extends State {
             sb.draw(tube.getBottomTube(), tube.getPosBotTube().x, tube.getPosBotTube().y);
             sb.draw(tube.getHosTube(), tube.getPosHosTube().x, tube.getPosHosTube().y);
         }
+
         sb.draw(ground,groundPos1.x,groundPos1.y);
         sb.draw(ground,groundPos2.x,groundPos2.y);
 

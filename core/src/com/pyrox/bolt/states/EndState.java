@@ -37,6 +37,7 @@ public class EndState extends State {
         glyph_score.setText(font,score);
         gwidth = glyph_gameover.width;
         swidth = glyph_score.width;
+        playState = new PlayState(gsm);
         finalscore = playState.points;
 
     }
