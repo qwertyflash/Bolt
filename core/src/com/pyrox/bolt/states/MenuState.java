@@ -25,7 +25,7 @@ public class MenuState extends State {
         super(gsm);
         cam.setToOrtho(false, bolt.WIDTH / 2, bolt.HEIGHT / 2);
         background = new Texture("background.png");
-        font_title = new BitmapFont(Gdx.files.internal("myfont.fnt"),Gdx.files.internal("myfont.png"), false);
+        font_title = new BitmapFont(Gdx.files.internal("myfont.fnt"),Gdx.files.internal("myfont.png"),false );
         font_tag = new BitmapFont(Gdx.files.internal("myfont.fnt"),Gdx.files.internal("myfont.png"), false);
         sb = new SpriteBatch();
         font_title.getData().setScale(3f,3f);

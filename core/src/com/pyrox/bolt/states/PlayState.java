@@ -67,12 +67,14 @@ public class PlayState extends State {
             if(tube.collides(ball.getBounds())){
                 gameover = true;
                 newgame();
+
             }
 
         }
         if(ball.getPosition().y <= ground.getHeight() + GROUND_Y_OFFSET){
             gameover = true;
             newgame();
+
         }
         cam.update();
 
