@@ -48,8 +48,6 @@ public class MenuState extends State {
         sb.begin();
         sb.draw(background,0,0);
         sb.draw(playbtn,cam.position.x - playbtn.getWidth() / 2,cam.position.y  );
-        sb.draw(title, cam.position.x - title.getWidth() / 2,(cam.position.y) * 3 / 2);
-        sb.draw(pyrox,cam.position.x - pyrox.getWidth() / 2,cam.position.y / 6);
         font.draw(sb,"Hello",0,30);
         sb.end();
 
@@ -58,7 +56,6 @@ public class MenuState extends State {
     @Override
     public void dispose() {
         background.dispose();
-        title.dispose();
         playbtn.dispose();
     }
 }
