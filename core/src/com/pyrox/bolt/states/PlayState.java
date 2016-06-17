@@ -18,7 +18,6 @@ public class PlayState extends State {
     private static final int GROUND_Y_OFFSET = -70;
     private static final int TUBE_COUNT = 2;
     private Array<Tube> tubes;
-    private BitmapFont font;
     private Ball ball;
     private SpriteBatch sb;
     private Texture background;
@@ -33,11 +32,10 @@ public class PlayState extends State {
         background = new Texture("background.png");
         ground = new Texture("ground.png");
         tubes = new Array<Tube>();
-        font = new BitmapFont(Gdx.files.internal("myfont.fnt"),Gdx.files.internal("myfont.png"), false);
         groundPos1 = new Vector2(cam.position.x - cam.viewportWidth / 2,GROUND_Y_OFFSET);
         groundPos2 = new Vector2(cam.position.x - cam.viewportWidth / 2 + ground.getWidth(),GROUND_Y_OFFSET);
         cam.setToOrtho(false, bolt.WIDTH /2,bolt.HEIGHT /2);
-
+        gameover = new Boolean(false);
 
 
         for (int i = 1;i < TUBE_COUNT; i++ ){
@@ -122,7 +120,7 @@ public class PlayState extends State {
         ground.dispose();
         background.dispose();
         ball.dispose();
-        tube.dispose();
+
 
     }
 }
