@@ -55,7 +55,7 @@ public class MenuState extends State {
         sb.draw(background,0,0);
         font_title.draw(sb,title, cam.position.x - title_width / 2, (cam.position.y  * 7) / 4);
         font_tag.draw(sb,tag,cam.position.x - tag_width / 2,cam.position.y / 6);
-        font_tag.draw(sb,play,cam.position.x,cam.position.y);
+        font_tag.draw(sb,play,cam.position.x - play_width / 2,cam.position.y);
         sb.end();
     }
     @Override
