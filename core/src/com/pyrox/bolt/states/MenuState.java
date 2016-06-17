@@ -70,6 +70,8 @@ public class MenuState extends State {
     public void dispose() {
         background.dispose();
         playbtn.dispose();
+        font_tag.dispose();
+        font_title.dispose();
 
     }
 }
