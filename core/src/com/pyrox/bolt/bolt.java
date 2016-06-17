@@ -29,7 +29,7 @@ public class bolt extends Game {
 		gsm = new GameStateManager();
 		music = (Gdx.audio.newMusic(Gdx.files.internal("music.mp3")));
 		music.setLooping(true);
-		music.setVolume(0.1f);
+		music.setVolume(0.8f);
 		music.play();
 		Gdx.gl.glClearColor(1, 0, 0, 1);
 		gsm.push(new MenuState(gsm));

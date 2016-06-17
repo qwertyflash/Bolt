@@ -18,6 +18,8 @@ public class EndState extends State {
     private String gameover,score;
     private GlyphLayout glyph_gameover,glyph_score;
     float gwidth,swidth;
+    private int finalscore;
+    private PlayState playState;
 
     protected EndState(GameStateManager gsm) {
         super(gsm);
@@ -35,6 +37,7 @@ public class EndState extends State {
         glyph_score.setText(font,score);
         gwidth = glyph_gameover.width;
         swidth = glyph_score.width;
+        finalscore = playState.points;
 
     }
 
@@ -57,6 +60,7 @@ public class EndState extends State {
         sb.draw(background,0,0);
         font_gameover.draw(sb,gameover,cam.position.x - gwidth / 2,(cam.position.y * 3 ) / 2);
         font.draw(sb,score,cam.position.x - swidth / 2, cam.position.y );
+        font.draw(sb,Integer.toString(getFinalscore()),cam.position.x,(cam.position.y * 3) / 4);
         sb.end();
     }
 
@@ -65,5 +69,9 @@ public class EndState extends State {
         background.dispose();
         font.dispose();
 
+    }
+
+    public int getFinalscore() {
+        return finalscore;
     }
 }

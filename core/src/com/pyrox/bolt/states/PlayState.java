@@ -24,6 +24,7 @@ public class PlayState extends State {
     private Texture ground;
     private Vector2 groundPos1,groundPos2;
     private Tube tube;
+    public int points;
     public boolean gameover;
 
     public PlayState(GameStateManager gsm) {
@@ -36,7 +37,7 @@ public class PlayState extends State {
         groundPos2 = new Vector2(cam.position.x - cam.viewportWidth / 2 + ground.getWidth(),GROUND_Y_OFFSET);
         cam.setToOrtho(false, bolt.WIDTH /2,bolt.HEIGHT /2);
         gameover = new Boolean(false);
-
+        points = 0;
 
         for (int i = 1;i < TUBE_COUNT; i++ ){
             tubes.add(new Tube(i * (TUBE_SPACING)));
@@ -62,6 +63,7 @@ public class PlayState extends State {
                 tube.reposition(tube.getPosTopTube().x);
                 tube.reposition(tube.getPosBotTube().x + 150);
                 tube.reposition(tube.getPosHosTube().x + 300);
+                points++;
             }
             if(tube.collides(ball.getBounds())) {
                 gameover = true;
@@ -121,5 +123,10 @@ public class PlayState extends State {
         ball.dispose();
 
 
+    }
+
+
+    public int getPoints() {
+        return points;
     }
 }
