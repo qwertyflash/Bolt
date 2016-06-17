@@ -25,6 +25,7 @@ public class PlayState extends State {
     private Texture ground;
     private Vector2 groundPos1,groundPos2;
     private Tube tube;
+    public boolean gameover;
 
     public PlayState(GameStateManager gsm) {
         super(gsm);
@@ -32,7 +33,7 @@ public class PlayState extends State {
         background = new Texture("background.png");
         ground = new Texture("ground.png");
         tubes = new Array<Tube>();
-
+        font = new BitmapFont(Gdx.files.internal("myfont.fnt"),Gdx.files.internal("myfont.png"), false);
         groundPos1 = new Vector2(cam.position.x - cam.viewportWidth / 2,GROUND_Y_OFFSET);
         groundPos2 = new Vector2(cam.position.x - cam.viewportWidth / 2 + ground.getWidth(),GROUND_Y_OFFSET);
         cam.setToOrtho(false, bolt.WIDTH /2,bolt.HEIGHT /2);
@@ -57,22 +58,27 @@ public class PlayState extends State {
         ball.update(dt);
         updateGround();
         cam.position.x = ball.getPosition().x + 80;
+
         for (Tube tube : tubes){
             if (cam.position.x - cam.viewportWidth / 2 > tube.getPosHosTube().x + tube.getHosTube().getWidth()){
                 tube.reposition(tube.getPosTopTube().x );
                 tube.reposition(tube.getPosBotTube().x + 150 );
                 tube.reposition(tube.getPosHosTube().x + 300 );
+
             }
             if(tube.collides(ball.getBounds())){
-                gsm.set(new PlayState(gsm));
+                gameover = true;
+                newgame();
             }
 
         }
         if(ball.getPosition().y <= ground.getHeight() + GROUND_Y_OFFSET){
-            gsm.set(new PlayState(gsm));
+            gameover = true;
+            newgame();
         }
-
         cam.update();
+
+
 
     }
 
@@ -90,6 +96,7 @@ public class PlayState extends State {
         sb.draw(ground,groundPos1.x,groundPos1.y);
         sb.draw(ground,groundPos2.x,groundPos2.y);
 
+
         sb.end();
 
     }
@@ -102,10 +109,20 @@ public class PlayState extends State {
             groundPos2.add(ground.getWidth() * 2, 0);
 
     }
+
+    public  void newgame(){
+        if (Gdx.input.justTouched()){
+            gsm.set(new EndState(gsm));
+        }
+
+
+    }
     @Override
     public void dispose() {
         ground.dispose();
         background.dispose();
+        ball.dispose();
+        tube.dispose();
 
     }
 }
