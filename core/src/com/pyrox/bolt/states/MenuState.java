@@ -34,7 +34,7 @@ public class MenuState extends State {
         title = new String("BOLT");
         tag = new String("TEAM PYROX INC.");
         glyphtitle.setText(font_title,title);
-        font_title.getData().setScale(2f);
+        font_title.getData().setScale(3f);
         glyphtag.setText(font_tag,tag);
         tag_width = glyphtag.width;
         title_width = glyphtitle.width;
@@ -59,7 +59,7 @@ public class MenuState extends State {
         sb.setProjectionMatrix(cam.combined);
         sb.begin();
         sb.draw(background,0,0);
-        font_title.draw(sb,title, cam.position.x - title_width /2 ,(cam.position.y) * 3 / 2);
+        font_title.draw(sb,title, 60,350);
         font_tag.draw(sb,tag,cam.position.x - tag_width / 2,cam.position.y / 6);
         sb.draw(playbtn,cam.position.x - playbtn.getWidth() / 2,cam.position.y  );
         sb.end();
@@ -70,5 +70,6 @@ public class MenuState extends State {
     public void dispose() {
         background.dispose();
         playbtn.dispose();
+
     }
 }
