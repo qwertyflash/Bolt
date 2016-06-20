@@ -58,7 +58,7 @@ public class MenuState extends State {
         textButtonStyle.up = skin.getDrawable("buttons");
         textButtonStyle.down = skin.getDrawable("buttons");
         textButtonStyle.checked = skin.getDrawable("buttons");
-        button = new TextButton("Play", textButtonStyle);
+        button = new TextButton("Play Now", textButtonStyle);
         stage.addActor(button);
     }
     @Override
