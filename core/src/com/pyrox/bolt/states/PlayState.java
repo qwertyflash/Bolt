@@ -123,6 +123,7 @@ public class PlayState extends State {
         if (Gdx.input.justTouched()){
             gsm.set(new MenuState(gsm));
             Gdx.graphics.setContinuousRendering(true);
+            
 
         }
     }

@@ -5,6 +5,10 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.pyrox.bolt.bolt;
 
 /**
@@ -17,10 +21,21 @@ public class MenuState extends State {
     private GlyphLayout glyphtitle,glyphtag,glyphplay;
     private String title,tag,play;
     private float title_width,tag_width,play_width;
+    private Stage stage;
+    private TextButton button;
+    private TextButton.TextButtonStyle textButtonStyle;
+    private Skin skin;
+    private TextureAtlas buttonAtlas;
+
     public MenuState(GameStateManager gsm) {
         super(gsm);
         cam.setToOrtho(false, bolt.WIDTH / 2, bolt.HEIGHT / 2);
         background = new Texture("background.png");
+        stage = new Stage();
+        Gdx.input.setInputProcessor(stage);
+        skin = new Skin();
+        buttonAtlas = new TextureAtlas(Gdx.files.internal("buttons.pack"));
+        skin.addRegions(buttonAtlas);
         font_title = new BitmapFont(Gdx.files.internal("myfont.fnt"),Gdx.files.internal("myfont.png"),false );
         font_tag = new BitmapFont(Gdx.files.internal("myfont.fnt"),Gdx.files.internal("myfont.png"), false);
         sb = new SpriteBatch();
@@ -37,6 +52,14 @@ public class MenuState extends State {
         tag_width = glyphtag.width;
         title_width = glyphtitle.width;
         play_width = glyphplay.width;
+
+        textButtonStyle = new TextButton.TextButtonStyle();
+        textButtonStyle.font = font_tag;
+        textButtonStyle.up = skin.getDrawable("buttons");
+        textButtonStyle.down = skin.getDrawable("buttons");
+        textButtonStyle.checked = skin.getDrawable("buttons");
+        button = new TextButton("Play", textButtonStyle);
+        stage.addActor(button);
     }
     @Override
     public void handleInput() {
@@ -52,6 +75,7 @@ public class MenuState extends State {
     public void render(SpriteBatch sb) {
         sb.setProjectionMatrix(cam.combined);
         sb.begin();
+        stage.draw();
         sb.draw(background,0,0);
         font_title.draw(sb,title, cam.position.x - title_width / 2, (cam.position.y  * 7) / 4);
         font_tag.draw(sb,tag,cam.position.x - tag_width / 2,cam.position.y / 6);
@@ -67,4 +91,6 @@ public class MenuState extends State {
 
 
     }
+
+
 }
